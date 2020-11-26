@@ -1,22 +1,25 @@
-function [c] = bisection(a, b, f, d, N)
-	err = 0.5 * 10^-d;
-	fprintf("I\ta\t\t\t\tf(a)\t\t\tb\t\t\t\tf(b)\t\t\tc\t\t\t\tf(c)\n");
-	for i = 1:N
-		af = f(a);
-		bf = f(b);
-		c = (a+b)/2;
-		cf = f(c);
-		fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n",...
-		i, a, af, b, bf, c, cf);
-		if abs(cf) < err
-			break;
-		elseif af*cf > 0
-			a = c;
-		else
-			b = c;
-		end
-	end
-return
+clc;
+clear;
+close all;
+
+f = @(x)(x - 1 - 0.3*cos(x));
+g = @(x)(1 + 0.3*cos(x));
+d = 5;
+a = 1.5;
+
+N = 100;
+err = 0.5 * 10^-d;
+fprintf("I\ta\t\t\t\tg(a)\t\t\tf(a)\n");
+for i = 1:N
+    c = g(a);
+    cf = f(c);
+    fprintf("%d)\t%.10f\t%.10f\t%.10f\n",...
+    i, a, c, cf);
+    if abs(c - a) < err
+        break;
+    end
+    a = c;
+end
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************
