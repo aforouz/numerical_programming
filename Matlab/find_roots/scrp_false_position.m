@@ -3,7 +3,7 @@ clear;
 close all;
 
 f = @(x)(x^4/4 + x^2/2 + x - 2);
-d = 6;
+d = 3;
 a = 0;
 b = 2;
 
@@ -13,15 +13,16 @@ fprintf("I\ta\t\t\t\tf(a)\t\t\tb\t\t\t\tf(b)\t\t\tc\t\t\t\tf(c)\n");
 for i = 1:N
     af = f(a);
     bf = f(b);
-    c = (a*bf - b*af)/(bf-af);
+    c = (a*bf - b*af)/(bf - af);
     cf = f(c);
-    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n",...
-    i, a, af, b, bf, c, cf);
+    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", i, a, af, b, bf, c, cf);
     if abs(cf) < err
         break;
+    elseif af*cf > 0
+        a = c;
+    else
+        b = c;
     end
-    a = b;
-    b = c;
 end
 
 % **************************************************^**************************************************

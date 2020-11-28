@@ -13,10 +13,9 @@ fprintf("I\ta\t\t\t\tf(a)\t\t\tb\t\t\t\tf(b)\t\t\tc\t\t\t\tf(c)\n");
 for i = 1:N
     af = f(a);
     bf = f(b);
-    c = (a*bf - b*af)/(bf - af);
+    c = (a+b)/2;
     cf = f(c);
-    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n",...
-    i, a, af, b, bf, c, cf);
+    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", i, a, af, b, bf, c, cf);
     if abs(cf) < err
         break;
     elseif af*cf > 0
