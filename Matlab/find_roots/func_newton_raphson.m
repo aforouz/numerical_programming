@@ -1,4 +1,6 @@
 function [c] = func_newton_raphson(a, f, df, d, N)
+	c = [];
+	
 	if nargin < 3 || nargin > 5
 		disp('Error in input');
 		return;
@@ -9,7 +11,6 @@ function [c] = func_newton_raphson(a, f, df, d, N)
 		d = 4;
 	end
 	
-	c = [];
 	err = 0.5 * 10^-d;
 	fprintf("I\ta\t\t\t\tf(a)\t\t\tdf(a)\t\t\tc\t\t\t\tf(c)\n");
 	for i = 1:N

@@ -1,4 +1,6 @@
 function [c] = func_fixed_point(a, f, g, d, N)
+	c = [];
+	
 	if nargin < 3 || nargin > 5
 		disp('Error in input');
 		return;
@@ -9,7 +11,6 @@ function [c] = func_fixed_point(a, f, g, d, N)
 		d = 4;
 	end
 	
-	c = [];
 	err = 0.5 * 10^-d;
 	fprintf("I\ta\t\t\t\tg(a)\t\t\tf(a)\n");
 	for i = 1:N

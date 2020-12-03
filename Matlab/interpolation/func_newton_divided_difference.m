@@ -1,14 +1,17 @@
 function [A] = func_newton_divided_difference(f, x)
-    if nargin < 2 || nargin > 3
+	A = [];
+	
+    if nargin < 1 || nargin > 2
 		disp('Error in input');
 		return;
-	elseif nargin == 2
+	elseif nargin == 1
 		x = 1:length(f);
     end
 
     if size(f, 1)==1
         f = f';
     end
+	
     n = length(f);
     A = ones(n)*NaN;
     A(:, 1) = f;
