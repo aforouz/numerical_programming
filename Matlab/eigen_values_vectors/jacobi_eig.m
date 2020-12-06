@@ -1,4 +1,5 @@
 function [L] = jacobi_eig(A, e, mi)
+	L = [];
     [~, n] = size(A);
     if any(any(A ~= A'))
         return
