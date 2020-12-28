@@ -14,7 +14,7 @@ y = x;
 y(1) = y0;
 
 fprintf("n\tx\t\t\t\tK1\t\t\t\tK2\t\t\t\tK3\t\t\t\tK4\t\t\t\ty\n");
-fprintf("0)\t%.10f\t|%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", x(1), 0, 0, 0, 0, y(1));
+fprintf("0)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", x(1), 0, 0, 0, 0, y(1));
 for n = 1:N-1
     K1 = h*f(x(n), y(n));
     K2 = h*f(x(n) + h/2, y(n) + K1/2);
