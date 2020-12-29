@@ -2,24 +2,26 @@ clc;
 clear;
 close all;
 
-f = @(x, y)(y + x^2);
+f = @(x, y)(x^2 + y^2);
+df = @(x, y)(2*x + 2*y*f(x, y));
 x0 = 0;
 y0 = 1;
 h = 0.1;
-xN = 1;
+xN = 0.3;
 
 N = round((xN-x0)/h)+1;
 x = x0:h:xN;
 y = x;
 y(1) = y0;
 
-fprintf("n\tx\t\t\t\thy\t\t\t\ty\n");
-fprintf("0)\t%.10f\t%.10f\t%.10f\n", x(1), 0, y(1));
+fprintf("n\tx\t\t\t\tdy\t\t\t\tddy\t\t\t\ty\n");
+fprintf("0)\t%.10f\t%.10f\t%.10f\t%.10f\n", x(1), 0, 0, y(1));
 
+xh = [h, h^2/2];
 for n = 1:N-1
-    hy = y(n) + 2*h*f(x(n), y(n))/3;
-    y(n+1) = y(n) + h*(f(x(n), y(n)) + 3*f(x(n) + 2*h/3, hy))/4;
-    fprintf("%d)\t%.10f\t%.10f\t%.10f\n", n, x(n+1), hy, y(n+1));
+    F = [f(x(n), y(n)); df(x(n), y(n))]; 
+    y(n+1) = y(n) + xh*F;
+    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\n", n, x(n+1), F(1), F(2), y(n+1));
 end
 
 % **************************************************^**************************************************

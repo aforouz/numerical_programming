@@ -13,7 +13,9 @@ x = x0:h:xN;
 y = x;
 y(1) = y0;
 
-fprintf("n\tx\t\t\t\thy\t\t\t\ty\n0)\t%.10f\t%.10f\t%.10f\n", x(1), 0, y(1));
+fprintf("n\tx\t\t\t\thy\t\t\t\ty\n");
+fprintf("0)\t%.10f\t%.10f\t%.10f\n", x(1), 0, y(1));
+
 for n = 1:N-1
     hy = y(n) + h*f(x(n), y(n))/2;
     y(n+1) = y(n) + h*f(x(n) + h/2, hy);

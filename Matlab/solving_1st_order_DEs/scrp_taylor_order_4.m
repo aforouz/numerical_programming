@@ -2,27 +2,28 @@ clc;
 clear;
 close all;
 
-f = @(x, y)(y + x^2);
+f = @(x, y)(x^2 + y^2);
+df = @(x, y)(2*x + 2*y*f(x, y));
+ddf = @(x, y)(2 + 2*f(x, y)^2 + 2*df(x, y)*y);
+dddf = @(x, y)(6*df(x, y) + 2*ddf(x, y)*y);
 x0 = 0;
 y0 = 1;
-h = 0.2;
-xN = 1;
+h = 0.1;
+xN = 0.3;
 
 N = round((xN-x0)/h)+1;
 x = x0:h:xN;
 y = x;
 y(1) = y0;
 
-fprintf("n\tx\t\t\t\tK1\t\t\t\tK2\t\t\t\tK3\t\t\t\tK4\t\t\t\ty\n");
+fprintf("n\tx\t\t\t\tdy\t\t\t\tddy\t\t\t\tdddy\t\t\tddddy\t\t\ty\n");
 fprintf("0)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", x(1), 0, 0, 0, 0, y(1));
 
+xh = [h, h^2/2, h^3/6, h^4/24];
 for n = 1:N-1
-    K1 = h*f(x(n), y(n));
-    K2 = h*f(x(n) + h/2, y(n) + K1/2);
-    K3 = h*f(x(n) + h/2, y(n) + K2/2);
-    K4 = h*f(x(n) + h, y(n) + K3);
-    y(n+1) = y(n) + (K1 + 2*K2 + 2*K3 + K4)/6;
-    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", n, x(n+1), K1, K2, K3, K4, y(n+1));
+    F = [f(x(n), y(n)); df(x(n), y(n)); ddf(x(n), y(n)); dddf(x(n), y(n))]; 
+    y(n+1) = y(n) + xh*F;
+    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n", n, x(n+1), F(1), F(2), F(3), F(4), y(n+1));
 end
 
 % **************************************************^**************************************************
