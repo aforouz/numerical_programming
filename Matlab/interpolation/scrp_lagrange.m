@@ -2,8 +2,8 @@ clc;
 clear;
 close all;
 
-x = [0 1 2 3 4];
-f = [0 0 1 0 0];
+x = 0:0.25:1;
+f = x + log(1 + x);
 
 if size(x, 2)==1
     x = x';
@@ -13,22 +13,23 @@ if size(f, 1)==1
 end
 
 n = length(f);
-A = ones(n)*NaN;
-A(:, 1) = f;
-for j = 2:n
-    for i = j:n
-        A(i, j) = (A(i, j-1)-A(i-1, j-1))/(x(i)-x(i-j+1));
+L = ones(n, 1);
+for i = 1:n
+    for j = 1:n
+        if i ~= j
+            L(i) = L(i)/(x(i) - x(j));
+        end
     end
 end
 
-fprintf("x\t\t\t\t|f1\t\t\t\t");
-for i = 2:n
-    fprintf("f%d\t\t\t\t", i);
-end
-fprintf("\n");
+fprintf("x\t\t\t\t|f\t\t\t\tL\n");
 for i = 1:n
-    fprintf("%.10f\t|", x(i));
-    fprintf("%.10f\t", A(i, :));
+    fprintf("%.10f\t|%.10f\t%.10f\t", x(i), f(i), L(i));
+    for j = 1:n
+        if i ~= j
+            fprintf("(x - %.10f)", x(j));
+        end
+    end
     fprintf("\n");
 end
 

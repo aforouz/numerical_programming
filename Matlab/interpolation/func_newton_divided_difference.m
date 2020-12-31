@@ -8,6 +8,9 @@ function [A] = func_newton_divided_difference(f, x)
 		x = 1:length(f);
     end
 
+	if size(x, 2)==1
+		x = x';
+	end
     if size(f, 1)==1
         f = f';
     end

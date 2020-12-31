@@ -2,10 +2,10 @@ clc;
 clear;
 close all;
 
-f = @(x, y)(x^2 + y^2);
-df = @(x, y)(2*x + 2*y*f(x, y));
-ddf = @(x, y)(2 + 2*f(x, y)^2 + 2*df(x, y)*y);
-dddf = @(x, y)(6*df(x, y) + 2*ddf(x, y)*y);
+f = @(x, y)(x^2 + y);
+df = @(x, y)(2*x + f(x, y));
+ddf = @(x, y)(2 + df(x, y));
+dddf = @(x, y)(ddf(x, y));
 x0 = 0;
 y0 = 1;
 h = 0.1;

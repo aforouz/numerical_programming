@@ -2,27 +2,25 @@ clc;
 clear;
 close all;
 
-f = @(x, y)(x^2 + y);
-df = @(x, y)(2*x + f(x, y));
-x0 = 0;
-y0 = 1;
-h = 0.1;
-xN = 1;
+x = [0, 0.25, 0.5, 0.75, 1];
+f = [0, 0.47314, 0.90546, 1.30962, 1.69375];
 
-N = round((xN-x0)/h)+1;
-x = x0:h:xN;
-y = x;
-y(1) = y0;
-
-fprintf("n\tx\t\t\t\tdy\t\t\t\tddy\t\t\t\ty\n");
-fprintf("0)\t%.10f\t%.10f\t%.10f\t%.10f\n", x(1), 0, 0, y(1));
-
-xh = [h, h^2/2];
-for n = 1:N-1
-    F = [f(x(n), y(n)); df(x(n), y(n))]; 
-    y(n+1) = y(n) + xh*F;
-    fprintf("%d)\t%.10f\t%.10f\t%.10f\t%.10f\n", n, x(n+1), F(1), F(2), y(n+1));
+if size(x, 2)==1
+    x = x';
 end
+if size(f, 1)==1
+    f = f';
+end
+
+n = length(f);
+A = [n, sum(x); sum(x), sum(x.^2)];
+B = [sum(f); x*f];
+
+X = A\B;
+
+fprintf("|%.10f\t%.10f\t||b| |%.10f\t|\n", A(1,1), A(1, 2), B(1));
+fprintf("|%.10f\t%.10f\t||a|=|%.10f\t|\n", A(2,1), A(2, 2), B(2));
+fprintf("\ny = a*x + b = %.10f*x + %.10f\n", X(2), X(1));
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************

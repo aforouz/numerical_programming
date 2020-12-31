@@ -2,8 +2,9 @@ clc;
 clear;
 close all;
 
-x = [0 1 2 3 4];
-f = [0 0 1 0 0];
+x = 0.34;
+xi = [0, 0.25, 0.5, 0.75, 1];
+f = [0, 0.47314, 0.90546, 1.30962, 1.69375];
 
 if size(x, 2)==1
     x = x';
@@ -13,24 +14,21 @@ if size(f, 1)==1
 end
 
 n = length(f);
-A = ones(n)*NaN;
-A(:, 1) = f;
-for j = 2:n
-    for i = j:n
-        A(i, j) = (A(i, j-1)-A(i-1, j-1))/(x(i)-x(i-j+1));
+L = ones(1, n);
+for i = 1:n
+    for j = 1:n
+        if i ~= j
+            L(i) = L(i)*(x - xi(j))/(xi(i) - xi(j));
+        end
     end
 end
 
-fprintf("x\t\t\t\t|f1\t\t\t\t");
-for i = 2:n
-    fprintf("f%d\t\t\t\t", i);
-end
-fprintf("\n");
+fprintf("x\t\t\t\t|L\t\t\t\tf\n");
 for i = 1:n
-    fprintf("%.10f\t|", x(i));
-    fprintf("%.10f\t", A(i, :));
-    fprintf("\n");
+    fprintf("%.10f\t|%.10f\t%.10f\n", xi(i), L(i), f(i));
 end
+
+fprintf("\np(x) = %.10f\n", L*f);
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************

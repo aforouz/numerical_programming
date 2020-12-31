@@ -5,7 +5,7 @@ close all;
 f = @(x, y)(y + x^2);
 x0 = 0;
 y0 = 1;
-h = 0.1;
+h = 0.01;
 xN = 1;
 
 N = round((xN-x0)/h)+1;
