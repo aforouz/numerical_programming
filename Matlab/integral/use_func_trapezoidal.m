@@ -2,26 +2,30 @@ clc;
 clear;
 close all;
 
-f = @(x)(x.*sin(x));
-N = 10;
+% Input
 a = 0;
-b = 1;
+b = 0.6;
+N = 6;
+f = @(x)(x.*sin(x));
 
-xi = linspace(a, b, N+1);
+% Algorithm
+y = f(linspace(a, b, N+1));
 h = (b-a)/N;
 
-NIntF = (f(a) + f(b))/2;
-if N > 1
-    for i = 2:N
-        NIntF = NIntF + f(xi(i));
-    end
+NIntF = (y(1) + y(end))/2;
+for i = 2:N
+    NIntF = NIntF + y(i);
 end
 NIntF = NIntF*h;
 
+% Output
+fprintf("NIntF = %.10f\n", NIntF);
+
+% Compare
 IntF = integral(f, a, b);
-fprintf("NIntF = %.10f\nTIntF = %.10f\nError = %.10f\n", NIntF, IntF, abs(NIntF - IntF));
+fprintf("IntF = %.10f\nError = %.10f\n", IntF, abs(NIntF - IntF));
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************
-% ******************************# Scientific Computing Specialist 20@20 #******************************
+% ******************************# Scientific Computing Specialist 20@21 #******************************
 % **************************************************^**************************************************
