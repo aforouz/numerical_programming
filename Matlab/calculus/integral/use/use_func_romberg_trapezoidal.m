@@ -32,14 +32,10 @@ NintF = T(end, end);
 
 % Output
 fprintf('T\t|');
-for i = 1:p+1
+for i = 1:p
     fprintf('%d\t\t\t\t', i-1);
 end
-fprintf('\n----|');
-for i = 1:p+1
-    fprintf('---------------');
-end
-fprintf('\n');
+fprintf('%d\n', p);
 for i = 1:p+1
     fprintf('%d\t|', i-1);
     for j = 1:i

@@ -2,34 +2,37 @@ clc;
 clear;
 close all;
 
-%{
+% Input
+xF = 0.34;
 x = [0, 0.25, 0.5, 0.75, 1];
 y = [0, 0.47314, 0.90546, 1.30962, 1.69375];
-%}
-
-% Input
-x = input('Enter x: ');
-y = input('Enter y: ');
 
 % Algorithm
-y = y';
-n = length(y);
-
-A = [n, sum(x); sum(x), sum(x.^2)];
-B = [sum(y); x*y];
-
-ba = A\B;
+N = length(y);
+L = ones(1, N);
+pL = L;
+for i = 1:N
+    for j = 1:N
+        if i ~= j
+            L(i) = L(i)*(xF - x(j))/(x(i) - x(j));
+            pL(i) = pL(i)/(x(i) - x(j));
+        end
+    end
+end
+NvalF = L*y';
 
 % Output
-fprintf('\n|%.10f\t%.10f\t||b| |%.10f\t|\n', A(1,1), A(1, 2), B(1));
-fprintf('|%.10f\t%.10f\t||a|=|%.10f\t|\n', A(2,1), A(2, 2), B(2));
-fprintf('\n|b| |%.10f\t|\n|a|=|%.10f\t|\n', ba(1), ba(2));
-fprintf('\ny = a*x + b = %.10f*x + %.10f\n', ba(2), ba(1));
-
-% Plot
-y = [ones(n, 1), x']*ba;
-plot(x, y, '*', x, y, '-');
-grid on;
+fprintf('x\t\t\t\t|f\t\t\t\tL\t\t\t\tpL\t\t\t\tp\n');
+for i = 1:N
+    fprintf('%.10f\t|%.10f\t%.10f\t%.10f\t', x(i), y(i), L(i), pL(i));
+    for j = 1:N
+        if i ~= j
+            fprintf('(x - %.10f)', x(j));
+        end
+    end
+    fprintf('\n');
+end
+fprintf('\nNvalF = %.10f\n', NvalF);
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************

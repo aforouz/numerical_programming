@@ -1,26 +1,30 @@
-clc;
-clear;
-close all;
-
+%{
+xF = 0.34;
 x = [0, 0.25, 0.5, 0.75, 1];
-f = [0, 0.47314, 0.90546, 1.30962, 1.69375];
+F = @(x)(x.*sin(x));
+%}
 
-if size(x, 2)==1
-    x = x';
+function [NvalF, EvalF, NvalE] = func_func_newton_divided_difference(xF, x, F)
+
+% Algorithm
+y = F(x);
+N = length(y);
+A = zeros(N);
+A(:, 1) = y';
+for j = 2:N
+    for i = j:N
+        A(i, j) = (A(i, j-1)-A(i-1, j-1))/(x(i)-x(i-j+1));
+    end
 end
-if size(f, 1)==1
-    f = f';
+X = ones(1, N);
+for i = 1:N-1
+    X(i+1) = (xF - x(i))*X(i);
 end
+NvalF = X*diag(A);
 
-n = length(f);
-A = [n, sum(x); sum(x), sum(x.^2)];
-B = [sum(f); x*f];
-
-X = A\B;
-
-fprintf("|%.10f\t%.10f\t||b| |%.10f\t|\n", A(1,1), A(1, 2), B(1));
-fprintf("|%.10f\t%.10f\t||a|=|%.10f\t|\n", A(2,1), A(2, 2), B(2));
-fprintf("\ny = a*x + b = %.10f*x + %.10f\n", X(2), X(1));
+% Compare
+EvalF = F(xF);
+NvalE = abs(EvalF - NvalF);
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************
