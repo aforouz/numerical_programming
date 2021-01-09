@@ -2,7 +2,6 @@ clc;
 clear;
 close all;
 
-xbar = 0.34;
 x = [0, 0.25, 0.5, 0.75, 1];
 f = [0, 0.47314, 0.90546, 1.30962, 1.69375];
 
@@ -14,21 +13,17 @@ if size(f, 1)==1
 end
 
 n = length(f);
-L = ones(1, n);
-for i = 1:n
-    for j = 1:n
-        if i ~= j
-            L(i) = L(i)*(xbar - x(j))/(x(i) - x(j));
-        end
-    end
-end
+A = [n, sum(x); sum(x), sum(x.^2)];
+B = [sum(f); x*f];
 
-fprintf("x\t\t\t\t|f\t\t\t\tL\n");
-for i = 1:n
-    fprintf("%.10f\t|%.10f\t%.10f\n", x(i), f(i), L(i));
-end
+ab = A\B;
 
-fprintf("\np(x) = %.10f\n", L*f);
+fprintf("|%.10f\t%.10f\t||b| |%.10f\t|\n", A(1,1), A(1, 2), B(1));
+fprintf("|%.10f\t%.10f\t||a|=|%.10f\t|\n", A(2,1), A(2, 2), B(2));
+fprintf("\ny = a*x + b = %.10f*x + %.10f\n", ab(2), ab(1));
+
+y = [ones(n, 1), x']*ab;
+plot(x, f, '*', x, y, '-')
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************

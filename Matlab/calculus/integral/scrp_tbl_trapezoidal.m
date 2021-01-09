@@ -22,7 +22,7 @@ end
 NintF = NintF*h;
 
 % Output
-fprintf("NintF = %.10f\n", NintF);
+fprintf("\nNintF = %.10f\n", NintF);
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************

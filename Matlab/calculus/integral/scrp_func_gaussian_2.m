@@ -13,7 +13,7 @@ F = input('Enter f: ');
 NintF = F(-sqrt(1/3)) + F(sqrt(1/3));
 
 % Output
-fprintf("NintF = %.10f\n", NintF);
+fprintf("\nNintF = %.10f\n", NintF);
 
 % Compare
 EintF = integral(F, -1, 1);

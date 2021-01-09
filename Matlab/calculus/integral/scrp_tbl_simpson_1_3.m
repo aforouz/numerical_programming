@@ -29,7 +29,7 @@ NintF = 4*NintFo + 2*NintFe + y(1) + y(end);
 NintF = NintF*h/3;
 
 % Output
-fprintf("NintF = %.10f\n", NintF);
+fprintf("\nNintF = %.10f\n", NintF);
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************

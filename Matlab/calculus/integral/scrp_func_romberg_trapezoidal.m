@@ -38,7 +38,23 @@ end
 NintF = T(end, end);
 
 % Output
-fprintf("NintF = %.10f\n", NintF);
+fprintf("\nT\t|");
+for i = 1:p+1
+    fprintf("%d\t\t\t\t", i-1);
+end
+fprintf("\n----|");
+for i = 1:p+1
+    fprintf("---------------");
+end
+fprintf("\n");
+for i = 1:p+1
+    fprintf("%d\t|", i-1);
+    for j = 1:i
+        fprintf("%.10f\t", T(i, j));
+    end
+    fprintf("\n");
+end
+fprintf("\nNintF = %.10f\n", NintF);
 
 % Compare
 EintF = integral(F, a, b);

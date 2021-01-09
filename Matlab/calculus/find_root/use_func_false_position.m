@@ -26,7 +26,7 @@ for i = 1:100
 end
 
 % Output
-fprintf("NsolF = %.10f\n", NsolF);
+fprintf("\nNsolF = %.10f\n", NsolF);
 
 % Compare
 EsolF = fzero(F, (a+b)/2);

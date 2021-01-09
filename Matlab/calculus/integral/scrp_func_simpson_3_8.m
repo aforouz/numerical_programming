@@ -34,7 +34,7 @@ NintF = 3*NintFo + 2*NintFe + y(1) + y(end);
 NintF = NintF*h*3/8;
 
 % Output
-fprintf("NintF = %.10f\n", NintF);
+fprintf("\nNintF = %.10f\n", NintF);
 
 % Compare
 EintF = integral(F, a, b);
