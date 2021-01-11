@@ -42,7 +42,7 @@ end
 fprintf('\ncg =\n');
 fprintf('|%.10f\t|\n', cg);
 for i = 1:k
-    fprintf('\nx(%d) =\n', i);
+    fprintf('\nx(%d) =\n', i-1);
     fprintf('|%.10f\t|\n', X(:, i));
 end
 fprintf('\nNsolS =\n');
