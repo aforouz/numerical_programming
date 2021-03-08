@@ -1,26 +1,35 @@
+% Start
+
 %{
-a = 1.5;
-e = 0.0001;
-F = @(x)(x.^6 - x - 1);
-df = @(x)(6.*x.^5 - 1);
+func = @(x)(x.^6 - x - 1);
+Dfunc = @(x)(6.*x.^5 - 1);
+ax = 1.5;
+err = 0.0001;
+Niter = 100;
 %}
 
-function [NsolF, EsolF, NsolE] = func_func_newton_raphson(a, e, F, df)
+% Function
+function [NsolF, EsolF, NsolE] = func_func_newton_raphson(ax, err, func, Dfunc, Niter)
+
+% Input
+if nargin < 5
+    Niter = 100;
+end
 
 % Algorithm
-for i = 1:100
-    af = F(a);
-    adf = df(a);
-    NsolF = a - af/adf;
-    Nf = F(NsolF);
-    if abs(Nf) < e
+for iter = 1:Niter
+    af = func(ax);
+    adf = Dfunc(ax);
+    NsolF = ax - af/adf;
+    Nf = func(NsolF);
+    if abs(Nf) < err
         break;
     end
-    a = NsolF;
+    ax = NsolF;
 end
 
 % Compare
-EsolF = fzero(F, a);
+EsolF = fzero(func, ax);
 NsolE = abs(EsolF - NsolF);
 
 % **************************************************^**************************************************

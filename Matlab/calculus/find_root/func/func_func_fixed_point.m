@@ -1,24 +1,33 @@
+% Start
+
 %{
-a = 1.5;
-e = 0.00001;
-F = @(x)(x - 1 - 0.3.*cos(x));
-g = @(x)(1 + 0.3.*cos(x));
+func = @(x)(x - 1 - 0.3.*cos(x));
+Gfunc = @(x)(1 + 0.3.*cos(x));
+ax = 1.5;
+err = 0.00001;
+Niter = 100;
 %}
 
-function [NsolF, EsolF, NsolE] = func_func_fixed_point(a, e, F, g)
+% Function
+function [NsolF, EsolF, NsolE] = func_func_fixed_point(ax, err, func, Gfunc, Niter)
+
+% Input
+if nargin < 5
+    Niter = 100;
+end
 
 % Algorithm
-for i = 1:100
-    NsolF = g(a);
-    Nf = F(NsolF);
-    if abs(Nf) < e
+for iter = 1:Niter
+    NsolF = Gfunc(ax);
+    Nf = func(NsolF);
+    if abs(Nf) < err
         break;
     end
-    a = NsolF;
+    ax = NsolF;
 end
 
 % Compare
-EsolF = fzero(F, a);
+EsolF = fzero(func, ax);
 NsolE = abs(EsolF - NsolF);
 
 % **************************************************^**************************************************

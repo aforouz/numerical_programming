@@ -1,5 +1,20 @@
+// Start
 #include <complex>
 using namespace std;
+
+/*
+double func(double x)
+{
+    return (
+        pow(x, 4)/4 + pow(x, 2)/2 + x - 2
+    );
+}
+
+double ax = 0;
+double bx = 2;
+double err = 0.00001;
+int Niter = 100;
+*/
 
 // Function
 double func_func_bisection(double ax, double bx, double err, double(*func)(double), int Niter = 100)

@@ -1,10 +1,8 @@
 // Start
 #include <complex>
-#include <iomanip>
-#include <iostream>
 using namespace std;
 
-// Function
+/*
 double func(double x)
 {
     return (
@@ -19,29 +17,22 @@ double Gfunc(double x)
     );
 }
 
-// Main
-int main()
-{
-    int iter, Niter;
-    double ax, err, NsolF, NvalF;
+double ax = 1.5;
+double err = 0.00001;
+int Niter = 100;
+*/
 
-    // Input
-    ax = 1.5;
-    err = 0.00001;
-    Niter = 100;
+// Function
+double func_func_fixed_point(double ax, double err, double(*func)(double), double(*Gfunc)(double), int Niter = 100)
+{
+    int iter;
+    double NsolF, NvalF;
 
     // Algorithm
-    cout << "I\ta\t\tg(a)\t\tf(a)"
-        << setprecision(10) << fixed
-        << endl;
-
     for (iter = 0; iter < Niter; ++iter)
     {
         NsolF = Gfunc(ax);
         NvalF = func(NsolF);
-
-        cout << iter+1 << ")\t" << ax << '\t'
-            << NsolF << '\t' << NvalF << endl;
 
         if (abs(NvalF) < err)
         {
@@ -50,11 +41,7 @@ int main()
         ax = NsolF;
     }
 
-    // Output
-    cout << endl << "NsolF = " << NsolF << endl;
-
-    // End
-    return 0;
+    return NsolF;
 }
 
 // **************************************************^**************************************************

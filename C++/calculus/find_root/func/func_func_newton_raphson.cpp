@@ -1,47 +1,40 @@
 // Start
 #include <complex>
-#include <iomanip>
-#include <iostream>
 using namespace std;
 
-// Function
+/*
 double func(double x)
 {
     return (
-        x - 1 - 0.3*cos(x)
+        cos(2*x) + sin(2*x) + x - 1
     );
 }
 
-double Gfunc(double x)
+double Dfunc(double x)
 {
     return (
-        1 + 0.3*cos(x)
+        2*cos(2*x) - 2*sin(2*x) + 1
     );
 }
 
-// Main
-int main()
-{
-    int iter, Niter;
-    double ax, err, NsolF, NvalF;
+double ax = 1.5;
+double err = 0.00001;
+int Niter = 100;
+*/
 
-    // Input
-    ax = 1.5;
-    err = 0.00001;
-    Niter = 100;
+// Function
+double func_func_newton_raphson(double ax, double err, double(*func)(double), double(*Dfunc)(double), int Niter = 100)
+{
+    int iter;
+    double af, aDf, NsolF, NvalF;
 
     // Algorithm
-    cout << "I\ta\t\tg(a)\t\tf(a)"
-        << setprecision(10) << fixed
-        << endl;
-
     for (iter = 0; iter < Niter; ++iter)
     {
-        NsolF = Gfunc(ax);
+        af = func(ax);
+        aDf = Dfunc(ax);
+        NsolF = ax - af/aDf;
         NvalF = func(NsolF);
-
-        cout << iter+1 << ")\t" << ax << '\t'
-            << NsolF << '\t' << NvalF << endl;
 
         if (abs(NvalF) < err)
         {
@@ -50,11 +43,7 @@ int main()
         ax = NsolF;
     }
 
-    // Output
-    cout << endl << "NsolF = " << NsolF << endl;
-
-    // End
-    return 0;
+    return NsolF;
 }
 
 // **************************************************^**************************************************

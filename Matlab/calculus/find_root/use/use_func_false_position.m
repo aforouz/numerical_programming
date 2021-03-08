@@ -1,27 +1,31 @@
+% Start
 clc;
 clear;
 close all;
 
+% Function
+func = @(x)(x.^4/4 + x.^2/2 + x - 2);
+
 % Input
-a = 0;
-b = 2;
-e = 0.00001;
-F = @(x)(x.^4/4 + x.^2/2 + x - 2);
+ax = 0;
+bx = 2;
+err = 0.00001;
+Niter = 100;
 
 % Algorithm
 fprintf('I\ta\t\t\t\tf(a)\t\t\tb\t\t\t\tf(b)\t\t\tc\t\t\t\tf(c)\n');
-for i = 1:100
-    af = F(a);
-    bf = F(b);
-    NsolF = (a*bf - b*af)/(bf - af);
-    NvalF = F(NsolF);
-    fprintf('%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n', i, a, af, b, bf, NsolF, NvalF);
-    if abs(NvalF) < e
+for iter = 1:Niter
+    af = func(ax);
+    bf = func(bx);
+    NsolF = (ax*bf - bx*af)/(bf - af);
+    NvalF = func(NsolF);
+    fprintf('%d)\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\t%.10f\n', iter, ax, af, bx, bf, NsolF, NvalF);
+    if abs(NvalF) < err
         break;
     elseif af*NvalF > 0
-        a = NsolF;
+        ax = NsolF;
     else
-        b = NsolF;
+        bx = NsolF;
     end
 end
 
@@ -29,7 +33,7 @@ end
 fprintf('\nNsolF = %.10f\n', NsolF);
 
 % Compare
-EsolF = fzero(F, (a+b)/2);
+EsolF = fzero(func, (ax+bx)/2);
 fprintf('EsolF = %.10f\nError = %.10f\n', EsolF, abs(EsolF - NsolF));
 
 % **************************************************^**************************************************

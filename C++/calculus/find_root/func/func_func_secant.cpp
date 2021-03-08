@@ -1,60 +1,44 @@
 // Start
 #include <complex>
-#include <iomanip>
-#include <iostream>
 using namespace std;
 
-// Function
+/*
 double func(double x)
 {
     return (
-        x - 1 - 0.3*cos(x)
+        pow(x, 4)/4 + pow(x, 2)/2 + x - 2
     );
 }
 
-double Gfunc(double x)
-{
-    return (
-        1 + 0.3*cos(x)
-    );
-}
+double ax = 0;
+double bx = 2;
+double err = 0.00001;
+int Niter = 100;
+*/
 
-// Main
-int main()
+// Function
+double func_func_secant(double ax, double bx, double err, double(*func)(double), int Niter = 100)
 {
-    int iter, Niter;
-    double ax, err, NsolF, NvalF;
-
-    // Input
-    ax = 1.5;
-    err = 0.00001;
-    Niter = 100;
+    int iter;
+    double af, bf, NsolF, NvalF;
 
     // Algorithm
-    cout << "I\ta\t\tg(a)\t\tf(a)"
-        << setprecision(10) << fixed
-        << endl;
-
     for (iter = 0; iter < Niter; ++iter)
     {
-        NsolF = Gfunc(ax);
+        af = func(ax);
+        bf = func(bx);
+        NsolF = (ax*bf - bx*af)/(bf - af);
         NvalF = func(NsolF);
-
-        cout << iter+1 << ")\t" << ax << '\t'
-            << NsolF << '\t' << NvalF << endl;
 
         if (abs(NvalF) < err)
         {
             break;
         }
-        ax = NsolF;
+        ax = bx;
+        bx = NsolF;
     }
 
-    // Output
-    cout << endl << "NsolF = " << NsolF << endl;
-
-    // End
-    return 0;
+    return NsolF;
 }
 
 // **************************************************^**************************************************

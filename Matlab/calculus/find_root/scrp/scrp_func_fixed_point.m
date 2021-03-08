@@ -1,36 +1,42 @@
+% Start
 clc;
 clear;
 close all;
 
 %{
-a = 1.5;
-e = 0.00001;
-F = @(x)(x - 1 - 0.3.*cos(x));
-g = @(x)(1 + 0.3.*cos(x));
+func = @(x)(x - 1 - 0.3.*cos(x));
+Gfunc = @(x)(1 + 0.3.*cos(x));
+ax = 1.5;
+err = 0.00001;
+Niter = 100;
 %}
+
+% Function
+func = input('Enter f: ');
+Gfunc = input('Enter g: ');
+
 % Input
-a = input('Enter a: ');
-e = input('Enter e: ');
-F = input('Enter f: ');
-g = input('Enter g: ');
+ax = input('Enter a: ');
+err = input('Enter e: ');
+Niter = input('Enter N: ');
 
 % Algorithm
 fprintf('\nI\ta\t\t\t\tg(a)\t\t\tf(a)\n');
-for i = 1:100
-    NsolF = g(a);
-    NvalF = F(NsolF);
-    fprintf('%d)\t%.10f\t%.10f\t%.10f\n', i, a, NsolF, NvalF);
-    if abs(NvalF) < e
+for iter = 1:Niter
+    NsolF = Gfunc(ax);
+    NvalF = func(NsolF);
+    fprintf('%d)\t%.10f\t%.10f\t%.10f\n', iter, ax, NsolF, NvalF);
+    if abs(NvalF) < err
         break;
     end
-    a = NsolF;
+    ax = NsolF;
 end
 
 % Output
 fprintf('\nNsolF = %.10f\n', NsolF);
 
 % Compare
-EsolF = fzero(F, a);
+EsolF = fzero(func, ax);
 fprintf('EsolF = %.10f\nError = %.10f\n', EsolF, abs(EsolF - NsolF));
 
 % **************************************************^**************************************************

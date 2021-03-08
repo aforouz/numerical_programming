@@ -1,29 +1,38 @@
+% Start
+
 %{
-a = 0;
-b = 2;
-e = 0.00001;
-F = @(x)(x.^4/4 + x.^2/2 + x - 2);
+func = @(x)(x.^4/4 + x.^2/2 + x - 2);
+ax = 0;
+bx = 2;
+err = 0.00001;
+Niter = 100;
 %}
 
-function [NsolF, EsolF, NsolE] = func_func_false_position(a, b, e, F)
+% Function
+function [NsolF, EsolF, NsolE] = func_func_false_position(ax, bx, err, func, Niter)
+
+% Input
+if nargin < 5
+    Niter = 100;
+end
 
 % Algorithm
-for i = 1:100
-    af = F(a);
-    bf = F(b);
-    NsolF = (a*bf - b*af)/(bf - af);
-    Nf = F(NsolF);
-    if abs(Nf) < e
+for iter = 1:Niter
+    af = func(ax);
+    bf = func(bx);
+    NsolF = (ax*bf - bx*af)/(bf - af);
+    Nf = func(NsolF);
+    if abs(Nf) < err
         break;
     elseif af*Nf > 0
-        a = NsolF;
+        ax = NsolF;
     else
-        b = NsolF;
+        bx = NsolF;
     end
 end
 
 % Compare
-EsolF = fzero(F, (a+b)/2);
+EsolF = fzero(func, (ax+bx)/2);
 NsolE = abs(EsolF - NsolF);
 
 % **************************************************^**************************************************

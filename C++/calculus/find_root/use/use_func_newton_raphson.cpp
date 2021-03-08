@@ -1,3 +1,4 @@
+// Start
 #include <complex>
 #include <iomanip>
 #include <iostream>
@@ -18,7 +19,7 @@ double Dfunc(double x)
     );
 }
 
-// Start
+// Main
 int main()
 {
     int iter, Niter;
