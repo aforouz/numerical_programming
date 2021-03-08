@@ -23,7 +23,7 @@ int Niter = 100;
 */
 
 // Function
-double func_func_fixed_point(double ax, double err, double(*func)(double), double(*Gfunc)(double), int Niter = 100)
+double func_func_fixed_point(double (*func)(double), double (*Gfunc)(double), double ax, double err = 0.00001, int Niter = 100)
 {
     int iter;
     double NsolF, NvalF;

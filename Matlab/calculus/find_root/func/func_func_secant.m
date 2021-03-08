@@ -9,9 +9,12 @@ Niter = 100;
 %}
 
 % Function
-function [NsolF, EsolF, NsolE] = func_func_secant(ax, bx, err, func, Niter)
+function [NsolF, EsolF, NsolE] = func_func_secant(func, ax, bx, err, Niter)
 
 % Input
+if nargin < 4
+    err = 0.00001;
+end
 if nargin < 5
     Niter = 100;
 end

@@ -9,9 +9,12 @@ Niter = 100;
 %}
 
 % Function
-function [NsolF, EsolF, NsolE] = func_func_false_position(ax, bx, err, func, Niter)
+function [NsolF, EsolF, NsolE] = func_func_false_position(func, ax, bx, err, Niter)
 
 % Input
+if nargin < 4
+    err = 0.00001;
+end
 if nargin < 5
     Niter = 100;
 end

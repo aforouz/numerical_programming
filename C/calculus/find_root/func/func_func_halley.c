@@ -29,7 +29,7 @@ int Niter = 100;
 */
 
 // Function
-double func_func_halley(double ax, double err, double(*func)(double), double(*Dfunc)(double), double(*D2func)(double), int Niter = 100)
+double func_func_halley(double (*func)(double), double (*Dfunc)(double), double (*D2func)(double), double ax, double err, int Niter = 100)
 {
     int iter;
     double af, aDf, aD2f, NsolF, NvalF;

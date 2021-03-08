@@ -10,9 +10,12 @@ Niter = 100;
 %}
 
 % Function
-function [NsolF, EsolF, NsolE] = func_func_halley(ax, err, func, Dfunc, D2func, Niter)
+function [NsolF, EsolF, NsolE] = func_func_halley(func, Dfunc, D2func, ax, err, Niter)
 
 % Input
+if nargin < 5
+    err = 0.00001;
+end
 if nargin < 6
     Niter = 100;
 end

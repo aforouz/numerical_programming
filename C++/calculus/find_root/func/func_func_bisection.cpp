@@ -17,7 +17,7 @@ int Niter = 100;
 */
 
 // Function
-double func_func_bisection(double ax, double bx, double err, double(*func)(double), int Niter = 100)
+double func_func_bisection(double (*func)(double), double ax, double bx, double err = 0.00001, int Niter = 100)
 {
     int iter;
     double af, bf, NsolF, NvalF;

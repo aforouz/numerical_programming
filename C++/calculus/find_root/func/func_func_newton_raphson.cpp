@@ -23,7 +23,7 @@ int Niter = 100;
 */
 
 // Function
-double func_func_newton_raphson(double ax, double err, double(*func)(double), double(*Dfunc)(double), int Niter = 100)
+double func_func_newton_raphson(double (*func)(double), double (*Dfunc)(double), double ax, double err = 0.00001, int Niter = 100)
 {
     int iter;
     double af, aDf, NsolF, NvalF;
