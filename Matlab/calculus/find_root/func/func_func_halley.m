@@ -26,8 +26,8 @@ for iter = 1:Niter
     aDf = Dfunc(ax);
 	aD2f = D2func(ax);
     NsolF = ax - 2*af*aDf/(2*aDf^2 - af*aD2f);
-    Nf = func(NsolF);
-    if abs(Nf) < err
+    NvalF = func(NsolF);
+    if abs(NvalF) < err
         break;
     end
     ax = NsolF;

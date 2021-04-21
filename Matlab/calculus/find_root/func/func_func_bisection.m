@@ -24,8 +24,8 @@ for iter = 1:Niter
     af = func(ax);
 %     bf = f(b);
     NsolF = (ax+bx)/2;
-    Nf = func(NsolF);
-    if abs(Nf) < err
+    NvalF = func(NsolF);
+    if abs(NvalF) < err
         break;
     elseif af*Nf > 0
         ax = NsolF;

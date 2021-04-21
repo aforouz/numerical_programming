@@ -22,8 +22,8 @@ end
 % Algorithm
 for iter = 1:Niter
     NsolF = Gfunc(ax);
-    Nf = func(NsolF);
-    if abs(Nf) < err
+    NvalF = func(NsolF);
+    if abs(NvalF) < err
         break;
     end
     ax = NsolF;
