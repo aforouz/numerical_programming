@@ -3,23 +3,23 @@ clear;
 close all;
 
 % Input
-xF = 2;
-x = [1,1.3,1.6,1.9,2.2];
-y = [.7651977,.620086,.4554022,.2818186,.1103632];
+xF = 0.6;
+x = [0, 0.25, 0.5, 0.75, 1];
+F = @(x)(x.*sin(x));
 
 % Algorithm
-h = x(2) - x(1);
+y = F(x);
 N = length(y);
 A = zeros(N);
 A(:, 1) = y';
 for j = 2:N
     for i = j:N
-        A(i, j) = (A(i, j-1)-A(i-1, j-1));
+        A(i, j) = (A(i, j-1)-A(i-1, j-1))/(x(i)-x(i-j+1));
     end
 end
 X = ones(1, N);
 for i = 1:N-1
-    X(i+1) = (xF - x(i))*X(i)/h/i;
+    X(i+1) = (xF - x(i))*X(i);
 end
 NvalF = X*diag(A);
 
@@ -38,7 +38,11 @@ for i = 1:N
 end
 fprintf('\nNvalF = %.10f\n', NvalF);
 
+% Compare
+EvalF = F(xF);
+fprintf('EvalF = %.10f\nError = %.10f\n', EvalF, abs(EvalF - NvalF));
+
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************
-% ******************************# Scientific Computing Specialist 20@21 #******************************
+% ******************************# Scientific Computing Specialist 20@20 #******************************
 % **************************************************^**************************************************

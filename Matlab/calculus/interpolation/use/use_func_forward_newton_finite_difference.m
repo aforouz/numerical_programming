@@ -3,12 +3,13 @@ clear;
 close all;
 
 % Input
-xF = 2;
-x = [1,1.3,1.6,1.9,2.2];
-y = [.7651977,.620086,.4554022,.2818186,.1103632];
+xF = 0.6;
+x = [0, 0.25, 0.5, 0.75, 1];
+F = @(x)(x.*sin(x));
 
 % Algorithm
 h = x(2) - x(1);
+y = F(x);
 N = length(y);
 A = zeros(N);
 A(:, 1) = y';
@@ -37,6 +38,10 @@ for i = 1:N
     fprintf('\n');
 end
 fprintf('\nNvalF = %.10f\n', NvalF);
+
+% Compare
+EvalF = F(xF);
+fprintf('EvalF = %.10f\nError = %.10f\n', EvalF, abs(EvalF - NvalF));
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************
