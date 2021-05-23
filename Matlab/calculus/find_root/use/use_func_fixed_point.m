@@ -13,6 +13,7 @@ err = 0.00001;
 Niter = 100;
 
 % Algorithm
+ax0 = ax;
 fprintf('I\ta\t\t\t\tg(a)\t\t\tf(a)\n');
 for iter = 1:Niter
     NsolF = Gfunc(ax);
@@ -28,7 +29,7 @@ end
 fprintf('\nNsolF = %.10f\n', NsolF);
 
 % Compare
-EsolF = fzero(func, ax);
+EsolF = fzero(func, ax0);
 fprintf('EsolF = %.10f\nError = %.10f\n', EsolF, abs(EsolF - NsolF));
 
 % **************************************************^**************************************************
