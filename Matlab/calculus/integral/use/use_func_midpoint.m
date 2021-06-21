@@ -5,18 +5,19 @@ close all;
 % Input
 a = 0;
 b = 1;
-N = 5;
-F = @(x)(x.*sin(x));
+N = 6;
+F = @(x)(sin(x)./x);
 
 % Algorithm
 h = (b-a)/N;
-x = a:h:b;
+x = (a + h/2):h:b;
 y = F(x);
 
-NintF = (y(1) + y(end))/2;
-for i = 2:N
+NintF = 0;
+for i = 1:N
     NintF = NintF + y(i);
 end
+
 NintF = NintF*h;
 
 % Output

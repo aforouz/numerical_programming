@@ -4,14 +4,14 @@ close all;
 
 % Input
 a = 0;
-b = .6;
+b = 1;
 N = 6;
 F = @(x)(x.*sin(x));
 
 % Algorithm
-x = linspace(a, b, N+1);
+h = (b-a)/N;
+x = a:h:b;
 y = F(x);
-h = (x(2) - x(1));
 
 NintFo = 0;
 for i = 2:2:N
