@@ -3,16 +3,19 @@ clear;
 close all;
 
 % Input
-F = @(x)(x.*sin(x));
+a = 1;
+b = 1.2;
+F = @(x)(exp(-x.^2));
 
 % Algorithm
-NintF = (5*F(-sqrt(3/5)) + 8*F(0) + 5*F(sqrt(3/5)))/9;
+G = @(x)((b-a)/2*F(((b-a).*x + (b+a))./2));
+NintF = (5*G(-sqrt(3/5)) + 8*G(0) + 5*G(sqrt(3/5)))/9;
 
 % Output
 fprintf('NintF = %.10f\n', NintF);
 
 % Compare
-EintF = integral(F, -1, 1);
+EintF = integral(F, a, b);
 fprintf('EintF = %.10f\nError = %.10f\n', EintF, abs(EintF - NintF));
 
 % **************************************************^**************************************************

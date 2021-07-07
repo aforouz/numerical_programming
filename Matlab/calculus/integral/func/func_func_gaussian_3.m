@@ -1,14 +1,17 @@
 %{
-F = @(x)(x.*sin(x))
+a = 1;
+b = 1.2;
+F = @(x)(exp(-x.^2));
 %}
 
-function [NintF, EintF, NintE] = func_func_gaussian_3(F)
+function [NintF, EintF, NintE] = func_func_gaussian_3(a, b, F)
 
 % Algorithm
-NintF = (5*F(-sqrt(3/5)) + 8*F(0) + 5*F(sqrt(3/5)))/9;
+G = @(x)((b-a)/2*F(((b-a).*x + (b+a))./2));
+NintF = (5*G(-sqrt(3/5)) + 8*G(0) + 5*G(sqrt(3/5)))/9;
 
 % Compare
-EintF = integral(F, -1, 1);
+EintF = integral(F, a, b);
 NintE = abs(EintF - NintF);
 
 % **************************************************^**************************************************
