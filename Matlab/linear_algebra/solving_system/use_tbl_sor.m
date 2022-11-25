@@ -3,10 +3,13 @@ clear;
 close all;
 
 % Input
-x = [1, -1, 0];
-b = [0.2, 0.3, 0.5];
-A = [0.8, -0.2, 0.3; 0.3, -0.5, 0.1; 0.2, 0.7, 1];
-e = 0.001;
+x = [0, 0, 0];
+b = [12, -10, 6];
+A = [8, -2, 0; -1, 5, 1;0, -1, 4];
+e = 1e-4;
+
+% SOR
+w = 2/(1 + sqrt(1 - abs(eigs(tril(A)\triu(A, 1), 1))));
 
 % Algorithm
 N = 100;
@@ -19,10 +22,10 @@ X(:, 1) = x;
 D = diag(diag(A));
 U = -triu(A, 1);
 L = -tril(A, -1);
-Tg = (D - L)\U;
-cg = (D - L)\b;
+Tw = (D - w*L)\((1-w)*D + w*U);
+cw = (D - w*L)\(w*b);
 for k = 2:N
-    X(:, k) = Tg*X(:, k-1) + cg;
+    X(:, k) = Tw*X(:, k-1) + cw;
     if norm(X(:, k) - X(:, k-1)) < e
         break
     end
@@ -31,16 +34,16 @@ X = X(:, 1:k);
 NsolS = X(:, end);
 
 % Output
-fprintf('Tg =\n');
+fprintf('Tw =\n');
 for i = 1:n
     fprintf('|');
     for j = 1:n
-        fprintf('%.10f\t', Tg(i, j));
+        fprintf('%.10f\t', Tw(i, j));
     end
     fprintf('|\n');
 end
-fprintf('\ncg =\n');
-fprintf('|%.10f\t|\n', cg);
+fprintf('\ncw =\n');
+fprintf('|%.10f\t|\n', cw);
 for i = 1:k
     fprintf('\nx(%d) =\n', i-1);
     fprintf('|%.10f\t|\n', X(:, i));
@@ -56,5 +59,5 @@ fprintf('\nError = %.10f\n', norm(EsolS - NsolS));
 
 % **************************************************^**************************************************
 % *****************************# Copyright by Ali Forouzandeh Hafshejani #*****************************
-% ******************************# Scientific Computing Specialist 20@21 #******************************
+% ******************************# Scientific Computing Specialist 20@22 #******************************
 % **************************************************^**************************************************

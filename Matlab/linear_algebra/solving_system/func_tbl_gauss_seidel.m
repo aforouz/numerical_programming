@@ -1,8 +1,7 @@
 function [y] = gauss_seidel_sys(A, b, x, e, mi)
 	y = [];
     L = tril(A);
-    U = triu(A, 1);
-    Tg = -L\U;
+    Tg = -L\triu(A, 1);
     cg = L\b;
     for k = 1:mi
         y = Tg*x + cg;

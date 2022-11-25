@@ -17,9 +17,9 @@ X = zeros(n, N);
 X(:, 1) = x;
 
 D = diag(diag(A));
-U = triu(A, 1);
-L = tril(A, -1);
-Tj = -D\(U + L);
+U = -triu(A, 1);
+L = -tril(A, -1);
+Tj = D\(U + L);
 cj = D\b;
 for k = 2:N
     X(:, k) = Tj*X(:, k-1) + cj;
